@@ -1,16 +1,24 @@
-import React from "react";
+import React, { use } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router";
+import GoogleLogin from "../../SocialLogin/GoogleLogin";
+
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
+  const { user } = use(AuthContext);
+  console.log(user);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  
   const onSubmit = (data) => {
     console.log(data);
   };
-  
+
   return (
     <div className="bg-white">
       <div>
@@ -52,7 +60,17 @@ const Login = () => {
           </div>
           <button className="btn bg-[#CAEB66] w-80 mt-4">Login</button>
         </fieldset>
+        <p>
+          Don’t have any account?{" "}
+          <Link
+            className="text-blue-600 hover:border-b hover:border-blue-600"
+            to="/register"
+          >
+            Register
+          </Link>
+        </p>
       </form>
+      <GoogleLogin />
     </div>
   );
 };

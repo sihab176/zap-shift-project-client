@@ -1,8 +1,13 @@
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { Link } from "react-router";
+import GoogleLogin from "../../SocialLogin/GoogleLogin";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
+  const{user}=useAuth()
+  console.log(user);
   const {
     register,
     handleSubmit,
@@ -76,7 +81,17 @@ const Register = () => {
             </div>
             <button className="btn bg-[#CAEB66] w-80 mt-4">Login</button>
           </fieldset>
+          <p>
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-blue-600 hover:border-b border-blue"
+            >
+              Login
+            </Link>
+          </p>
         </form>
+        <GoogleLogin />
       </div>
     </div>
   );
