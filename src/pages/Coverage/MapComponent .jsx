@@ -38,15 +38,15 @@ const MapComponent = ({ serviceCenters }) => {
   };
 
   return (
-    <div className="h-[800px] w-full rounded-lg overflow-hidden shadow-lg relative">
-      <form
+   <>
+   <form
         onSubmit={handleSearch}
-        className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-md px-4 flex bg-gray-400"
+        className="  w-full  px-4 flex justify-center"
       >
         <input
           type="text"
           placeholder="Search district..."
-          className="flex-1 px-4 py-2 border rounded-l-md outline-none"
+          className="flex-1 px-4 py-2 border rounded-l-md outline-none max-w-72"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -57,11 +57,13 @@ const MapComponent = ({ serviceCenters }) => {
           Go
         </button>
       </form>
+    <div className="h-[500px] w-full rounded-lg overflow-hidden shadow-lg relative">
+      
 
       {/* map container */}
       <MapContainer
         center={position}
-        zoom={8}
+        zoom={7}
         scrollWheelZoom={false}
         className="h-full w-full z-0"
       >
@@ -87,6 +89,7 @@ const MapComponent = ({ serviceCenters }) => {
         ))}
       </MapContainer>
     </div>
+   </>
   );
 };
 

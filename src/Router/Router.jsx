@@ -21,6 +21,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/pricing",
+        loader: () => fetch("./warehouses.json"),
         element: (
           <PrivetRoute>
             <PricingForm></PricingForm>
