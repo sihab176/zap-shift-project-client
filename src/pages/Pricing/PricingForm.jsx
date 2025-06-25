@@ -47,6 +47,7 @@ const PricingForm = () => {
     let baseCost = 0;
     let extraCost = 0;
     let breakdown = "";
+    
 
     if (data.type === "document") {
       baseCost = isSameDistrict ? 60 : 80;

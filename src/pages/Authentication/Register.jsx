@@ -1,13 +1,16 @@
-import React, { use } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import GoogleLogin from "../../SocialLogin/GoogleLogin";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const{user}=useAuth()
+  const { user, createUser, setUser, updateUser } = useAuth();
   console.log(user);
+  const navigate = useNavigate("/");
   const {
     register,
     handleSubmit,
@@ -16,10 +19,31 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    createUser(data.email, data.password)
+      .then((result) => {
+        console.log(result);
+        // const users = result.users;
+        updateUser({ displayName: data.name })
+          .then(() => {
+            // setUser({ ...users, displayName: data.name });
+            navigate("/");
+            // toast.success("welcome to event conference");
+            Swal.fire({
+              icon: "success",
+              title: "welcome to BookBridge ",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((error) => {
+            // setUser(users);
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        toast(error.message);
+      });
   };
-
-  const userInfo = use(AuthContext);
-  console.log(userInfo);
 
   return (
     <div>
@@ -79,7 +103,7 @@ const Register = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
-            <button className="btn bg-[#CAEB66] w-80 mt-4">Login</button>
+            <button className="btn bg-[#CAEB66] w-80 mt-4">register</button>
           </fieldset>
           <p>
             Already have an account?{" "}

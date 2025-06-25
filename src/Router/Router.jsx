@@ -9,6 +9,7 @@ import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import PricingForm from "../pages/Pricing/PricingForm";
 import DashboardLayout from "../layout/DashboardLayout";
 import MyParcel from "../pages/DashBord/MyParcels/MyParcel";
+import payment from "../pages/DashBord/Payment/payment";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,9 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivetRoute>
     ),
-    children: [{ path: "myParcel", Component: MyParcel }],
+    children: [
+      { path: "myParcel", Component: MyParcel },
+      { path: "myParcel/:id", Component: payment },
+    ],
   },
 ]);

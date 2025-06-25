@@ -1,22 +1,44 @@
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import GoogleLogin from "../../SocialLogin/GoogleLogin";
 
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { user } = use(AuthContext);
-  console.log(user);
+  const { singInUser } = useAuth();
+  console.log(singInUser);
+  const navigate = useNavigate("/");
+  const location = useLocation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data.email, data.password);
+    if (data) {
+      singInUser(data.email, data.password)
+        .then((result) => {
+          console.log(result.user);
+          navigate(`${location.state ? location.state : "/"}`);
+
+          Swal.fire({
+            icon: "success",
+            title: "welcome to BookBridge ",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.warn(error.message);
+        });
+    }
   };
 
   return (
@@ -71,6 +93,7 @@ const Login = () => {
         </p>
       </form>
       <GoogleLogin />
+      <ToastContainer />
     </div>
   );
 };
