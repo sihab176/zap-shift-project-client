@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useLoaderData } from "react-router";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 //----------------------------------------------------------->
 const generateTrackingID = () => {
@@ -20,7 +20,8 @@ const PricingForm = () => {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
+
+  const axiosSecure = useAxiosSecure();
 
   const serviceCenters = useLoaderData();
 
@@ -33,7 +34,7 @@ const PricingForm = () => {
     serviceCenters.filter((w) => w.region === region).map((w) => w.district);
 
   const parcelType = watch("type");
-  const senderRegion = watch("sender_region");   // aitar value getDistrictsByRegion a set hocche .
+  const senderRegion = watch("sender_region"); // aitar value getDistrictsByRegion a set hocche .
   // console.log("watch", senderRegion);
   const receiverRegion = watch("receiver_region");
 
@@ -121,20 +122,24 @@ const PricingForm = () => {
 
         console.log("Ready for payment:", parcelData);
 
-        // axiosSecure.post('/parcels', parcelData)
-        //     .then(res => {
-        //         console.log(res.data);
-        //         if (res.data.insertedId) {
-        //             // TODO: redirect to a payment page
-        //             Swal.fire({
-        //                 title: "Redirecting...",
-        //                 text: "Proceeding to payment gateway.",
-        //                 icon: "success",
-        //                 timer: 1500,
-        //                 showConfirmButton: false,
-        //             });
-        //         }
-        //     })
+        axiosSecure
+          .post("/parcels", parcelData)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+              // TODO: redirect to a payment page
+              Swal.fire({
+                title: "Redirecting...",
+                text: "Proceeding to payment gateway.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+              });
+            }
+          })
+          .catch((eror) => {
+            console.log(eror);
+          });
       }
     });
   };
@@ -214,7 +219,7 @@ const PricingForm = () => {
 
         {/* Sender & Receiver Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Sender Info */}
+          {/*------------------------------- Sender Info------------------------------- */}
           <div className="border p-4 rounded-xl shadow-md space-y-4">
             <h3 className="font-semibold text-xl">Sender Info</h3>
             <div className="grid grid-cols-1 gap-4">
@@ -263,7 +268,7 @@ const PricingForm = () => {
             </div>
           </div>
 
-          {/* Receiver Info */}
+          {/*----------------------------- Receiver Info----------------------------- */}
           <div className="border p-4 rounded-xl shadow-md space-y-4">
             <h3 className="font-semibold text-xl">Receiver Info</h3>
             <div className="grid grid-cols-1 gap-4">

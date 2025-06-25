@@ -7,6 +7,8 @@ import Register from "../pages/Authentication/Register";
 import Coverage from "../pages/Coverage/Coverage";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import PricingForm from "../pages/Pricing/PricingForm";
+import DashboardLayout from "../layout/DashboardLayout";
+import MyParcel from "../pages/DashBord/MyParcels/MyParcel";
 
 export const router = createBrowserRouter([
   {
@@ -37,5 +39,14 @@ export const router = createBrowserRouter([
       { path: "/login", Component: Login },
       { path: "/register", Component: Register },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivetRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivetRoute>
+    ),
+    children: [{ path: "myParcel", Component: MyParcel }],
   },
 ]);
