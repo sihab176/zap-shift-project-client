@@ -64,7 +64,7 @@ const MyParcel = () => {
     return new Date(iso).toLocaleString(); // Format: "6/22/2025, 3:11:31 AM"
   };
 
-  console.log(parcels);
+  // console.log(parcels);
   return (
     <div className="overflow-x-auto shadow-md rounded-xl">
       <table className="table table-zebra w-full">

@@ -27,7 +27,7 @@ const PricingForm = () => {
 
   // Extract unique regions --------------------------------------------> //  ????
   const uniqueRegions = [...new Set(serviceCenters.map((w) => w.region))];
-  console.log(" uniqueRegions", uniqueRegions);
+  // console.log(" uniqueRegions", uniqueRegions);
 
   // ------------Get districts by region---------------------------------> //  ????
   const getDistrictsByRegion = (region) =>
@@ -47,7 +47,6 @@ const PricingForm = () => {
     let baseCost = 0;
     let extraCost = 0;
     let breakdown = "";
-    
 
     if (data.type === "document") {
       baseCost = isSameDistrict ? 60 : 80;

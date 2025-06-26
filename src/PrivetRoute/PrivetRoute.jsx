@@ -5,7 +5,7 @@ import { Navigate, useLocation } from "react-router";
 const PrivetRoute = ({ children }) => {
   const { loading, user } = useAuth();
   const location = useLocation();
-  console.log(location);
+
   if (loading) {
     return (
       <div className="flex-col gap-4 w-full flex items-center justify-center h-screen">

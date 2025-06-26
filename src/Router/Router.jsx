@@ -10,6 +10,8 @@ import PricingForm from "../pages/Pricing/PricingForm";
 import DashboardLayout from "../layout/DashboardLayout";
 import MyParcel from "../pages/DashBord/MyParcels/MyParcel";
 import payment from "../pages/DashBord/Payment/payment";
+import PaymentHistory from "../pages/DashBord/Payment/PaymentHistory";
+import TrackParcel from "../pages/DashBord/TrackParcel/TrackParcel";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +52,9 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "myParcel", Component: MyParcel },
-      { path: "myParcel/:id", Component: payment },
+      { path: "myParcel/:parcelId", Component: payment },
+      { path: "paymentHistory", Component: PaymentHistory },
+      { path: "track", Component: TrackParcel },
     ],
   },
 ]);

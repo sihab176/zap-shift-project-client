@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import ProFastLogo from "../pages/Shared/ProFastLogo/ProFastLogo";
-import { FaBoxOpen, FaHome } from "react-icons/fa";
+
+import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation } from 'react-icons/fa';
 
 const DashboardLayout = () => {
   return (
@@ -45,13 +46,7 @@ const DashboardLayout = () => {
           </div>
         </div>
         <Outlet />
-        {/* Page content here */}
-        {/* <label
-          htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
-          Open drawer
-        </label> */}
+      
       </div>
       <div className="drawer-side">
         <label
@@ -61,17 +56,35 @@ const DashboardLayout = () => {
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
-          <ProFastLogo />
+          <ProFastLogo></ProFastLogo>
           <li>
-            <NavLink to="/dashboard">
+            <Link to="/dashboard">
               <FaHome className="inline-block mr-2" />
               Home
-            </NavLink>
+            </Link>
           </li>
           <li>
             <NavLink to="/dashboard/myParcel">
               <FaBoxOpen className="inline-block mr-2" />
               My Parcels
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/paymentHistory">
+              <FaMoneyCheckAlt className="inline-block mr-2" />
+              Payment History
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/track">
+              <FaSearchLocation className="inline-block mr-2" />
+              Track a Package
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/profile">
+              <FaUserEdit className="inline-block mr-2" />
+              Update Profile
             </NavLink>
           </li>
         </ul>
