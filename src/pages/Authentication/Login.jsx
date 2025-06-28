@@ -10,7 +10,7 @@ import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const { singInUser } = useAuth();
-  console.log(singInUser);
+  // console.log(singInUser);
   const navigate = useNavigate("/");
   const location = useLocation();
   const {

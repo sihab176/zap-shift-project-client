@@ -2,7 +2,15 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import ProFastLogo from "../pages/Shared/ProFastLogo/ProFastLogo";
 
-import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation } from 'react-icons/fa';
+import {
+  FaHome,
+  FaBoxOpen,
+  FaMoneyCheckAlt,
+  FaUserEdit,
+  FaSearchLocation,
+  FaUserClock,
+} from "react-icons/fa";
+import { RiEBike2Line } from "react-icons/ri";
 
 const DashboardLayout = () => {
   return (
@@ -46,7 +54,6 @@ const DashboardLayout = () => {
           </div>
         </div>
         <Outlet />
-      
       </div>
       <div className="drawer-side">
         <label
@@ -85,6 +92,18 @@ const DashboardLayout = () => {
             <NavLink to="/dashboard/profile">
               <FaUserEdit className="inline-block mr-2" />
               Update Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/active-riders">
+              <RiEBike2Line  className="inline-block mr-2" />
+              Active Riders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/pending">
+              <FaUserClock className="inline-block mr-2" />
+              Pending Riders
             </NavLink>
           </li>
         </ul>

@@ -15,6 +15,7 @@ const PaymentForm = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
+//TODO :  TANSTACK QUERY FOR  get --------------------------->
   const { isPending, data: parcelInfo = {} } = useQuery({
     queryKey: ["parcel", parcelId],
     queryFn: async () => {
@@ -23,7 +24,7 @@ const PaymentForm = () => {
     },
   });
 
-  // console.log("parcelInfo", parcelInfo);
+  console.log("parcelInfo", parcelInfo);
   const amount = parcelInfo?.cost || 0;
   const amountInCents = amount * 100;
   // console.log("amountInCents", amountInCents);
@@ -32,6 +33,7 @@ const PaymentForm = () => {
     return <div className=" text-4xl text-center">"loading............."</div>;
   }
 
+  // TODO : HANDLE SUBMIT ------------------------------------------->
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
@@ -52,14 +54,14 @@ const PaymentForm = () => {
       setError("");
       console.log("paymentMethod", paymentMethod);
 
-      //! step 2 : confirm the payment ------------------------------->
+      //! step 2 : send the amount in server -get secret ------------->
       const res = await axiosSecure.post("/create-payment-intent", {
         amountInCents,
         parcelId,
       });
 
       const clientSecret = res.data.clientSecret;
-      //! step 3 : confirm the payment---------------------------------->
+      //! step 3 : confirm the payment-- taka kete nibe -------------->
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
@@ -113,7 +115,7 @@ const PaymentForm = () => {
       >
         <CardElement className="p-2 border rounded"></CardElement>
         <button type="submit" className="btn btn-primary w-full">
-          pay {parcelInfo?.cost} BDT
+          pay $ {parcelInfo?.cost} USD
         </button>
         {error && <p className="text-red-600">{error}</p>}
       </form>

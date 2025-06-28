@@ -1,21 +1,35 @@
 import React, { use } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { useLocation, useNavigate } from "react-router";
+import useAxios from "../hooks/useAxios";
 
 const GoogleLogin = () => {
   const { googleLogin } = use(AuthContext);
+  const axiosInstance = useAxios();
 
   const navigate = useNavigate("/");
   const location = useLocation();
 
   const handelGoogleSignUp = () => {
     googleLogin()
-      .then((res) => {
-        // console.log(res.data);
+      .then(async (res) => {
+        // console.log(res.user.email);
+        const user = res.user;
+        //! save into database ------------->
+        const userInfo = {
+          email: user.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_login: new Date().toISOString(),
+        };
+        const result = await axiosInstance.post("/users", userInfo);
+
+        console.log(result);
+
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
       });
   };
   return (

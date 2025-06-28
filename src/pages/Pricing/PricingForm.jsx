@@ -17,6 +17,7 @@ const PricingForm = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
@@ -135,6 +136,7 @@ const PricingForm = () => {
                 timer: 1500,
                 showConfirmButton: false,
               });
+              reset();
             }
           })
           .catch((eror) => {

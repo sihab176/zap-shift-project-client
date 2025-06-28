@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useNavigate } from "react-router";
@@ -6,28 +6,46 @@ import GoogleLogin from "../../SocialLogin/GoogleLogin";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import axios from "axios";
+import useAxios from "../../hooks/useAxios";
 
 const Register = () => {
-  const { user, createUser, setUser, updateUser } = useAuth();
-  console.log(user);
+  const { createUser, updateUser } = useAuth();
+  const [profilePic, setProfilePic] = useState("");
   const navigate = useNavigate("/");
+  const axiosInstance = useAxios();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // ! HANDLE SUBMIT ---------------------------------------------->
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result);
-        // const users = result.users;
-        updateUser({ displayName: data.name })
+        
+        // save into database ------------->
+        const userInfo = {
+          email: data.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_login: new Date().toISOString(),
+        };
+
+        const userRes = await axiosInstance.post("/users", userInfo);
+        console.log("userRes", userRes.data);
+
+        const userProfile = {
+          displayName: data.name,
+          photoURL: profilePic,
+        };
+        // ! update user ---------->
+        updateUser(userProfile)
           .then(() => {
-            // setUser({ ...users, displayName: data.name });
             navigate("/");
-            // toast.success("welcome to event conference");
             Swal.fire({
               icon: "success",
               title: "welcome to BookBridge ",
@@ -36,7 +54,6 @@ const Register = () => {
             });
           })
           .catch((error) => {
-            // setUser(users);
             toast.error(error.message);
           });
       })
@@ -44,7 +61,21 @@ const Register = () => {
         toast(error.message);
       });
   };
+  // ! HANDLE IMAGE UPLOAD TO IMAGBB --------------------------------->
+  const handleImageUpload = async (e) => {
+    const imageFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
 
+    const res = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_IMGBB_API_KEY
+      }`,
+      formData
+    );
+    setProfilePic(res.data.data.url);
+  };
+  // console.log(profilePic);
   return (
     <div>
       <div className="bg-white">
@@ -53,7 +84,21 @@ const Register = () => {
           <p>Register with Profast </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* name ----------> */}
+          {/* photo ----------> */}
+          <fieldset className="fieldset">
+            <label htmlFor="image" className="label font-bold">
+              Select Image:
+            </label>
+            <input
+              onChange={handleImageUpload}
+              className=" cursor-pointer input pt-2"
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+            />
+          </fieldset>
+          {/* name  */}
           <fieldset className="fieldset">
             <label className="label font-bold">Name</label>
 
