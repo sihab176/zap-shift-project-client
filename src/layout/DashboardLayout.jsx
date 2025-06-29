@@ -11,8 +11,14 @@ import {
   FaUserClock,
 } from "react-icons/fa";
 import { RiEBike2Line } from "react-icons/ri";
+import { MdAdminPanelSettings } from "react-icons/md";
+import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayout = () => {
+
+const {role}= useUserRole()
+console.log({role});
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -96,7 +102,7 @@ const DashboardLayout = () => {
           </li>
           <li>
             <NavLink to="/dashboard/active-riders">
-              <RiEBike2Line  className="inline-block mr-2" />
+              <RiEBike2Line className="inline-block mr-2" />
               Active Riders
             </NavLink>
           </li>
@@ -104,6 +110,12 @@ const DashboardLayout = () => {
             <NavLink to="/dashboard/pending">
               <FaUserClock className="inline-block mr-2" />
               Pending Riders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/makeAdmin">
+              <MdAdminPanelSettings  className="inline-block mr-2" />
+              make Admin
             </NavLink>
           </li>
         </ul>

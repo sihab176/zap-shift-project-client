@@ -25,7 +25,7 @@ const PendingRiders = () => {
     return "...loading";
   }
 
-  const handleDecision = async (id, action) => {
+  const handleDecision = async (id, action,email) => {
     const confirm = await Swal.fire({
       title: `${action === "approve" ? "Approve" : "Reject"} Application?`,
       icon: "warning",
@@ -39,6 +39,7 @@ const PendingRiders = () => {
     try {
       await axiosSecure.patch(`/riders/${id}/status`, {
         status: action === "approve" ? "active" : "rejected",
+        email: email
       });
 
       refetch();
@@ -85,13 +86,14 @@ const PendingRiders = () => {
                     <FaEye />
                   </button>
                   <button
-                    onClick={() => handleDecision(rider._id, "approve")}
+                    onClick={() => handleDecision(rider._id, "approve",rider.email)}
                     className="btn btn-sm btn-success"
                   >
-                    <FaCheck />
+                    {/* <FaCheck /> */}
+                     approve
                   </button>
                   <button
-                    onClick={() => handleDecision(rider._id, "reject")}
+                    onClick={() => handleDecision(rider._id, "reject",rider.email)}
                     className="btn btn-sm btn-error"
                   >
                     <FaTimes />

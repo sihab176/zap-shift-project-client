@@ -22,7 +22,7 @@ const ActiveRiders = () => {
     },
   });
   console.log(riders);
-  // 🔴 Handle Deactivation
+  //TODO 🔴 Handle Deactivation=============================>
   const handleDeactivate = async (id) => {
     const confirm = await Swal.fire({
       title: "Deactivate this rider?",
