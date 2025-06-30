@@ -16,6 +16,8 @@ import BeARider from "../pages/BeARider/BeARider";
 import PendingRiders from "../pages/BeARider/PendingRiders/PendingRiders";
 import ActiveRiders from "../pages/BeARider/ActiveRiders/ActiveRiders";
 import MakeAdmin from "../pages/MakeAdmin/MakeAdmin";
+import Forbidden from "../pages/Error/Forbidden";
+import AdminRoute from "../PrivetRoute/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,10 @@ export const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
+      {
+        path: "/forbidden",
+        Component: Forbidden,
+      },
     ],
   },
   {
@@ -68,9 +74,32 @@ export const router = createBrowserRouter([
       { path: "myParcel/:parcelId", Component: payment },
       { path: "paymentHistory", Component: PaymentHistory },
       { path: "track", Component: TrackParcel },
-      { path: "pending", Component: PendingRiders },
-      { path: "active-riders", Component: ActiveRiders },
-      { path: "makeAdmin", Component: MakeAdmin },
+      {
+        path: "pending",
+        element: (
+          <AdminRoute>
+            <PendingRiders></PendingRiders>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "active-riders",
+        element: (
+          <AdminRoute>
+            <ActiveRiders></ActiveRiders>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "makeAdmin",
+
+        element: (
+          <AdminRoute>
+            {" "}
+            <MakeAdmin></MakeAdmin>
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);

@@ -15,9 +15,8 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayout = () => {
-
-const {role}= useUserRole()
-console.log({role});
+  const { role, roleLoading } = useUserRole();
+  console.log({ role });
 
   return (
     <div className="drawer lg:drawer-open">
@@ -100,24 +99,29 @@ console.log({role});
               Update Profile
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/active-riders">
-              <RiEBike2Line className="inline-block mr-2" />
-              Active Riders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/pending">
-              <FaUserClock className="inline-block mr-2" />
-              Pending Riders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/makeAdmin">
-              <MdAdminPanelSettings  className="inline-block mr-2" />
-              make Admin
-            </NavLink>
-          </li>
+          {/* riders */}
+          {!roleLoading && role === "admin" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/active-riders">
+                  <RiEBike2Line className="inline-block mr-2" />
+                  Active Riders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/pending">
+                  <FaUserClock className="inline-block mr-2" />
+                  Pending Riders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/makeAdmin">
+                  <MdAdminPanelSettings className="inline-block mr-2" />
+                  make Admin
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>

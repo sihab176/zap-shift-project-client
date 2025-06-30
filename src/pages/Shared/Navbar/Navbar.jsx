@@ -78,8 +78,16 @@ const Navbar = () => {
           </Link>
         )}
         <a className="btn">Be a ride</a>
-        <a className="bg-black w-9 h-9 text-center text-white flex justify-center rounded-full">
-          X
+        <a className="  ">
+          {user && (
+            <div>
+              <img
+                className="rounded-full w-12"
+                src={user?.photoURL}
+                alt="photo"
+              />
+            </div>
+          )}
         </a>
       </div>
     </div>
