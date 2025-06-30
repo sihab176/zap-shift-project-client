@@ -10,7 +10,7 @@ import {
   FaSearchLocation,
   FaUserClock,
 } from "react-icons/fa";
-import { RiEBike2Line } from "react-icons/ri";
+import { RiEBike2Line, RiEBikeFill } from "react-icons/ri";
 import { MdAdminPanelSettings } from "react-icons/md";
 import useUserRole from "../hooks/useUserRole";
 
@@ -102,6 +102,12 @@ const DashboardLayout = () => {
           {/* riders */}
           {!roleLoading && role === "admin" && (
             <>
+              <li>
+                <NavLink to="/dashboard/assignRider">
+                  <RiEBikeFill className="inline-block mr-2" />
+                  Assign Rider
+                </NavLink>
+              </li>
               <li>
                 <NavLink to="/dashboard/active-riders">
                   <RiEBike2Line className="inline-block mr-2" />
