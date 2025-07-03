@@ -21,7 +21,7 @@ const ActiveRiders = () => {
       return res.data;
     },
   });
-  console.log(riders);
+  // console.log(riders);
   //TODO 🔴 Handle Deactivation=============================>
   const handleDeactivate = async (id) => {
     const confirm = await Swal.fire({
@@ -50,6 +50,7 @@ const ActiveRiders = () => {
   const filteredRiders = riders.filter((rider) =>
     rider.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  console.log("filteredRiders :", filteredRiders);
 
   return (
     <div className="p-6">

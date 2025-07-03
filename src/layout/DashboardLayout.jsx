@@ -13,6 +13,9 @@ import {
 import { RiEBike2Line, RiEBikeFill } from "react-icons/ri";
 import { MdAdminPanelSettings } from "react-icons/md";
 import useUserRole from "../hooks/useUserRole";
+import { GrDeliver } from "react-icons/gr";
+import { IoShieldCheckmarkSharp } from "react-icons/io5";
+import { GiReceiveMoney } from "react-icons/gi";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
@@ -99,7 +102,33 @@ const DashboardLayout = () => {
               Update Profile
             </NavLink>
           </li>
-          {/* riders */}
+
+          {/* riders deliveries */}
+
+          {!roleLoading && role === "rider" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/pendingDeliveries">
+                  <GrDeliver className="inline-block mr-2" />
+                  Riders Deliveries
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/completedDeliveries">
+                  <IoShieldCheckmarkSharp className="inline-block mr-2" />
+                  completed Deliveries
+                </NavLink>
+              </li>
+             <li>
+               <NavLink to="/dashboard/myEarning">
+                <GiReceiveMoney className="inline-block mr-2" />
+                My Earnings
+              </NavLink>
+             </li>
+            </>
+          )}
+
+          {/* admin */}
           {!roleLoading && role === "admin" && (
             <>
               <li>

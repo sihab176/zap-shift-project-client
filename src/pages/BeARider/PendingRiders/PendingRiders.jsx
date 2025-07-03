@@ -24,7 +24,7 @@ const PendingRiders = () => {
   if (isPending) {
     return "...loading";
   }
-
+// todo : ===================== handle decision ==================>
   const handleDecision = async (id, action,email) => {
     const confirm = await Swal.fire({
       title: `${action === "approve" ? "Approve" : "Reject"} Application?`,

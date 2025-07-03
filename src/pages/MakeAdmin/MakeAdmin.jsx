@@ -6,7 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MakeAdmin = () => {
   const axiosSecure = useAxiosSecure();
-  const [emailQuery, setEmailQuery] = useState("");
+  const [emailQuery, setEmailQuery] = useState(".");
 
   const {
     data: users = [],
@@ -53,6 +53,7 @@ const MakeAdmin = () => {
     }
   };
 
+  console.log(users);
   return (
     <div className="p-6">
     
